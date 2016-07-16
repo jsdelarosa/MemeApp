@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate{
+class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate{
 
     @IBOutlet weak var imagePickerView: UIImageView!
     @IBOutlet weak var bottomText: UITextField!
@@ -19,22 +19,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet weak var toolBar: UIToolbar!
     @IBOutlet weak var cameraButton: UIBarButtonItem!
   
- 
-    struct Meme {
-        var top: String
-        var bottom: String
-        var image: UIImage
-        
-        // The actual meme image. It was built using the meme elemets
-        var memedImage: UIImage
-        
-        init(top: String, bottom: String, image: UIImage, memedImage: UIImage) {
-            self.top = top
-            self.bottom = bottom
-            self.image = image
-            self.memedImage = memedImage
-        }
-    }
 
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
@@ -77,11 +61,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         unsubscribeToKeyboardHideNotification()
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-   
     func setupTextField(textField: UITextField!) {
         textField.text = "Insert Text"
         textField.defaultTextAttributes = memeTextAttributes
@@ -102,22 +81,25 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 
     //Select the path of the image Album or camera
     @IBAction func pickAnImageFromAlbum(sender: AnyObject) {
-        let albumPicker = UIImagePickerController()
-        albumPicker.delegate = self
-        presentViewController(albumPicker, animated: true, completion: nil)
+        pickAnImageFromSource(.PhotoLibrary)
+
     }
     
     @IBAction func pickAnImageFromCamera(sender: AnyObject) {
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        imagePicker.sourceType = UIImagePickerControllerSourceType.Camera
-        presentViewController(imagePicker, animated: true, completion: nil)
+        pickAnImageFromSource(.Camera)
     }
     
     @IBAction func shareMeme(sender: UIBarButtonItem) {
         let memedImage = generateMemedImage()
-        let nextController = UIActivityViewController(activityItems: [memedImage], applicationActivities: nil)
-        presentViewController(nextController, animated: true, completion: nil)
+        let activityViewController = UIActivityViewController(activityItems: [memedImage], applicationActivities: nil)
+        activityViewController.completionWithItemsHandler = {
+            (activity, success, items, error) in
+            if success {
+                self.save()
+                self.dismissViewControllerAnimated(true, completion: nil)
+            }
+        }
+        presentViewController(activityViewController, animated: true, completion: nil)
         
     }
     
@@ -127,17 +109,17 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         setupTextField(bottomText)
     }
     
-    func selectSource() {
+    func pickAnImageFromSource(source: UIImagePickerControllerSourceType) {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
-        
+        imagePicker.sourceType = source
         presentViewController(imagePicker, animated: true, completion: nil)
     }
     
     //Moves the view when the kb covers the text field
     func keyboardWillShow(notification: NSNotification) {
         if bottomText.isFirstResponder() {
-            view.frame.origin.y -= getKeyboardHeight(notification)
+          view.frame.origin.y = getKeyboardHeight(notification) * (-1)
         }
     }
     
@@ -168,12 +150,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     
     
-    func save(memedImage: UIImage!) {
+    func save() {
 
         //Create the meme
+        let meme = Meme(topText: topText.text!, bottomText: bottomText.text!, image: imagePickerView.image!, memedImage: generateMemedImage())
 
-        let meme = Meme(top: topText.text!, bottom: bottomText.text!, image: imagePickerView.image!, memedImage: memedImage)
-    }
+     }
     
     func generateMemedImage() -> UIImage {
         
