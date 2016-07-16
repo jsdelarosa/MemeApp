@@ -19,7 +19,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet weak var toolBar: UIToolbar!
     @IBOutlet weak var cameraButton: UIBarButtonItem!
   
-
+ 
     struct Meme {
         var top: String
         var bottom: String
@@ -57,7 +57,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         super.viewDidLoad()
       
         // Do any additional setup after loading the view, typically from a nib.
-        textProperties()
+        setupTextField(topText)
+        setupTextField(bottomText)
         cameraButton.enabled = UIImagePickerController.isSourceTypeAvailable(.Camera);
         shareButton.enabled = false
     }
@@ -80,19 +81,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-    func textProperties() {
-        topText.textAlignment = .Center
-        bottomText.textAlignment = .Center
-        
-        topText.text = "Insert Text"
-        bottomText.text = "Insert Text"
-        
-        topText.defaultTextAttributes = memeTextAttributes
-        bottomText.defaultTextAttributes = memeTextAttributes
-        
-        topText.delegate = self
-        bottomText.delegate = self
+   
+    func setupTextField(textField: UITextField!) {
+        textField.text = "Insert Text"
+        textField.defaultTextAttributes = memeTextAttributes
+        textField.textAlignment = .Center
+        textField.delegate = self
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {   //delegate method
@@ -134,8 +128,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     @IBAction func cancelMeme(sender: UIBarButtonItem) {
         dismissViewControllerAnimated(true, completion: nil)
-        textProperties()
-        print("done")
+        setupTextField(topText)
+        setupTextField(bottomText)
     }
     
     //Moves the view when the kb covers the text field
