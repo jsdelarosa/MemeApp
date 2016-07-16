@@ -19,7 +19,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="73g-VD-tJH">
-                                <rect key="frame" x="20" y="512" width="560" height="44"/>
+                                <rect key="frame" x="0.0" y="512" width="600" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="ufz-kh-rlD"/>
+                                </constraints>
                                 <items>
                                     <barButtonItem systemItem="flexibleSpace" id="KIQ-OC-vCa"/>
                                     <barButtonItem title="Album" id="2XD-iq-Rp4">
@@ -37,19 +40,15 @@
                                 </items>
                             </toolbar>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qy7-k4-7cQ">
-                                <rect key="frame" x="100" y="100" width="400" height="400"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="400" id="jPX-Lr-vPY"/>
-                                    <constraint firstAttribute="height" constant="400" id="qvf-gY-Jjz"/>
-                                </constraints>
+                                <rect key="frame" x="0.0" y="64" width="600" height="448"/>
                             </imageView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="test" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dCX-Jz-UfZ" userLabel="Bottom Text Field">
-                                <rect key="frame" x="265" y="424" width="71" height="48"/>
+                                <rect key="frame" x="265" y="464" width="71" height="48"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="test" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="v3E-5s-nK8" userLabel="Top Text Field">
-                                <rect key="frame" x="265" y="100" width="71" height="48"/>
+                                <rect key="frame" x="265" y="64" width="71" height="48"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
                             </textField>
@@ -57,13 +56,16 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="v3E-5s-nK8" firstAttribute="centerX" secondItem="qy7-k4-7cQ" secondAttribute="centerX" id="Amq-hp-4h0"/>
-                            <constraint firstItem="dCX-Jz-UfZ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Kzf-JZ-mlo"/>
-                            <constraint firstItem="qy7-k4-7cQ" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Mg6-oG-Q1f"/>
-                            <constraint firstItem="73g-VD-tJH" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="NcO-O1-Tyr"/>
+                            <constraint firstItem="dCX-Jz-UfZ" firstAttribute="centerX" secondItem="qy7-k4-7cQ" secondAttribute="centerX" id="FOz-GE-MqG"/>
+                            <constraint firstItem="73g-VD-tJH" firstAttribute="top" secondItem="qy7-k4-7cQ" secondAttribute="bottom" id="Ivi-jf-iJK"/>
+                            <constraint firstItem="73g-VD-tJH" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" constant="20" id="NcO-O1-Tyr"/>
                             <constraint firstItem="v3E-5s-nK8" firstAttribute="top" secondItem="qy7-k4-7cQ" secondAttribute="top" id="NoD-hO-gu0"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="73g-VD-tJH" secondAttribute="bottom" id="PKf-ZP-FSb"/>
-                            <constraint firstItem="73g-VD-tJH" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="kcW-0T-hKs"/>
-                            <constraint firstItem="73g-VD-tJH" firstAttribute="top" secondItem="dCX-Jz-UfZ" secondAttribute="bottom" constant="40" id="nCM-Mg-Qep"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="qy7-k4-7cQ" secondAttribute="trailing" constant="-20" id="SXB-p9-Qby"/>
+                            <constraint firstItem="qy7-k4-7cQ" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="YC2-vD-Aw4"/>
+                            <constraint firstItem="73g-VD-tJH" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="kcW-0T-hKs"/>
+                            <constraint firstItem="dCX-Jz-UfZ" firstAttribute="bottom" secondItem="qy7-k4-7cQ" secondAttribute="bottom" id="qgO-yU-HT7"/>
+                            <constraint firstItem="qy7-k4-7cQ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="t87-TK-eoL"/>
                             <constraint firstItem="qy7-k4-7cQ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="uz6-wf-pJU"/>
                         </constraints>
                     </view>
