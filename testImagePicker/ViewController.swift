@@ -102,10 +102,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 
     //Select the path of the image Album or camera
     @IBAction func pickAnImageFromAlbum(sender: AnyObject) {
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
-        presentViewController(imagePicker, animated: true, completion: nil)
+        let albumPicker = UIImagePickerController()
+        albumPicker.delegate = self
+        presentViewController(albumPicker, animated: true, completion: nil)
     }
     
     @IBAction func pickAnImageFromCamera(sender: AnyObject) {
@@ -114,14 +113,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         imagePicker.sourceType = UIImagePickerControllerSourceType.Camera
         presentViewController(imagePicker, animated: true, completion: nil)
     }
-        // self.dismissViewControllerAnimated(true, completion: nil)
     
     @IBAction func shareMeme(sender: UIBarButtonItem) {
         let memedImage = generateMemedImage()
-        
-        
         let nextController = UIActivityViewController(activityItems: [memedImage], applicationActivities: nil)
-                
         presentViewController(nextController, animated: true, completion: nil)
         
     }
@@ -132,16 +127,25 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         setupTextField(bottomText)
     }
     
+    func selectSource() {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        
+        presentViewController(imagePicker, animated: true, completion: nil)
+    }
+    
     //Moves the view when the kb covers the text field
     func keyboardWillShow(notification: NSNotification) {
-    
-        view.frame.origin.y -= getKeyboardHeight(notification)
+        if bottomText.isFirstResponder() {
+            view.frame.origin.y -= getKeyboardHeight(notification)
+        }
     }
     
     //Returns the view when keyboard dismisses
     func keyboardWillHide(notification: NSNotification) {
-        
-        view.frame.origin.y = 0
+        if bottomText.isFirstResponder() {
+            view.frame.origin.y = 0
+        }
     }
     
     //Subscribe & Unsubscribe from Keyboard Notifications
