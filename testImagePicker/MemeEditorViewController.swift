@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  MemeEditorViewController.swift
 //  testImagePicker
 //
 //  Created by Salvador De La Rosa on 7/11/16.
@@ -160,11 +160,17 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     
     func generateMemedImage() -> UIImage {
         
+          toolBar.hidden = true
+          navigationBar.hidden = true
+        
         //Render view to an image
         UIGraphicsBeginImageContext(view.frame.size)
         view.drawViewHierarchyInRect(view.frame, afterScreenUpdates: true)
         let memedImage : UIImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
+        
+         toolBar.hidden = false
+         navigationBar.hidden = false
         
         return memedImage
     }
