@@ -29,12 +29,8 @@ class MemeTableViewController: UITableViewController {
         let meme = memes[indexPath.row]
         
         cell.imageView?.image = meme.memedImage
-        cell.textLabel?.text = meme.topText + "|" + meme.bottomText
+        cell.textLabel?.text = meme.topText + " " + meme.bottomText
         return cell
-    }
-    
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
     }
     
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
@@ -42,6 +38,12 @@ class MemeTableViewController: UITableViewController {
             (UIApplication.sharedApplication().delegate as! AppDelegate).memes.removeAtIndex(indexPath.row)
             tableView.reloadData()
         }
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let detailController = storyboard!.instantiateViewControllerWithIdentifier("MemeDetailViewController") as! MemeDetailViewController
+        detailController.meme = memes[indexPath.row]
+        navigationController!.pushViewController(detailController, animated: true)
     }
 
 }
